@@ -54,11 +54,12 @@ import validator from 'validator'
 import { useI18n } from 'vue-i18n'
 import { useAxios } from '@/composables/axios'
 import { useSnackbar } from 'vuetify-use-dialog'
-import router from '@/router'
+import { useRouter } from 'vue-router'
 
 const { t } = useI18n()
 const { api } = useAxios()
 const createSnackbar = useSnackbar()
+const router = useRouter()
 
 const schema = yup.object({
   account: yup
@@ -115,7 +116,7 @@ const submit = handleSubmit(async (values) => {
       }
     })
     router.push('/login')
-  }catch (error) {
+  } catch (error) {
     console.log(error)
     createSnackbar({
       text: t('api.' + (error?.response?.data?.message || 'unknownError')),
